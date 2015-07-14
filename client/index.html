@@ -11,16 +11,16 @@
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="env/config.js"></script>
     <script src="scripts/app.js"></script>
+    <script src="env/jayquery.js"></script>
   </head>
   <body>
     <div id="main">
       <h1>chatterbox</h1>
       <select id='roomSelect'>
-        <option value="ROOM!">ROOM!</option>
       </select>
       <div id='chats'></div>
-      <form > Chat Here!<br><input type="text"><button>Submit</button></form>
-
+      <form > Chat Here!<br><input id="input" type="text"></form>
+      <button id="submit">Submit</button>
     </div>
   </body>
 </html>
