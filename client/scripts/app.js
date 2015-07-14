@@ -1,13 +1,16 @@
 var app = {};
+var ids = {};
+var holder = {};
 
 app.init = function() {
     var chatData = app.fetch();
     setTimeout(function() {
         chatData = chatData.responseJSON.results;
         console.log(chatData);
-        var holder = {};
         for (var i = 0; i < chatData.length; i++) {
             holder[chatData[i].roomname] = chatData[i].roomname;
+        }
+        for (var i = chatData.length - 1; i >= 0; i--) {
             app.addMessage(chatData[i]);
         }
         app.addRoom(holder);
@@ -24,6 +27,7 @@ app.send = function(message) {
         contentType: 'application/json',
         success: function(data) {
             console.log('chatterbox: Message sent');
+
         },
         error: function(data) {
             // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
@@ -49,24 +53,39 @@ app.fetch = function() {
 
 
 };
-app.server = 'https://api.parse.com/1/classes/chatterbox';
+app.server = 'https://api.parse.com/1/classes/chatterbox/';
 
 app.clearMessages = function() {
     $('#chats').empty();
 }
 
 app.addMessage = function(message) {
-    var $divs = $("<div class='" + message.roomname + "'></div>").hide();
-    $divs.text(message.username + ': ' + message.text + "  ----  " + message.createdAt);
+    // var arr = Array.prototype.slice.call($('#roomSelect').children());
 
-
-    $('#chats').append($divs);
+    if (!ids.hasOwnProperty(message.objectId)) {
+        ids[message.objectId] = message.objectId;
+        if ($('#roomSelect').val() === message.room) {
+            var $divs = $("<div class='" + message.roomname + "'></div>");
+        } else {
+            var $divs = $("<div class='" + message.roomname + "'></div>").hide();
+        }
+        $divs.text(message.username + ': ' + message.text + "  ----  " + message.createdAt);
+        $('#chats').prepend($divs);
+    }
 }
 
 app.addRoom = function(room) {
+    var arr = Array.prototype.slice.call($('#roomSelect').children());
+    arr = arr.map(function(ind) {
+        return ind.value
+    });
     for (var key in room) {
-        $('#roomSelect').append('<option value="' + key + '">' + key + '</option>');
+        if (arr.indexOf(key) === -1) {
+            $('#roomSelect').append('<option value="' + key + '">' + key + '</option>');
+        }
 
     }
 }
 app.init();
+
+setInterval(app.init, 200)
