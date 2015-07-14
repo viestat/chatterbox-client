@@ -8,13 +8,19 @@
     <!-- dependencies -->
     <script src="bower_components/jquery/jquery.min.js"></script>
     <!-- your scripts -->
+    <script src="bower_components/underscore/underscore.js"></script>
     <script src="env/config.js"></script>
     <script src="scripts/app.js"></script>
   </head>
   <body>
     <div id="main">
       <h1>chatterbox</h1>
-      <!-- Your HTML goes here! -->
+      <select id='roomSelect'>
+        <option value="ROOM!">ROOM!</option>
+      </select>
+      <div id='chats'></div>
+      <form > Chat Here!<br><input type="text"><button>Submit</button></form>
+
     </div>
   </body>
 </html>
