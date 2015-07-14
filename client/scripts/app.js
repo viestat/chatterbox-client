@@ -10,10 +10,10 @@ app.init = function() {
         for (var i = 0; i < chatData.length; i++) {
             holder[chatData[i].roomname] = chatData[i].roomname;
         }
+        app.addRoom(holder);
         for (var i = chatData.length - 1; i >= 0; i--) {
             app.addMessage(chatData[i]);
         }
-        app.addRoom(holder);
 
     }, 1000);
 
@@ -60,11 +60,10 @@ app.clearMessages = function() {
 }
 
 app.addMessage = function(message) {
-    // var arr = Array.prototype.slice.call($('#roomSelect').children());
-
     if (!ids.hasOwnProperty(message.objectId)) {
         ids[message.objectId] = message.objectId;
-        if ($('#roomSelect').val() === message.room) {
+        if ($('#roomSelect').val() === message.roomname) {
+        
             var $divs = $("<div class='" + message.roomname + "'></div>");
         } else {
             var $divs = $("<div class='" + message.roomname + "'></div>").hide();
