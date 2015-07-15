@@ -8,9 +8,8 @@ $(document).ready(function() {
       var obj = {
         text: $('#input').val(),
         username: window.location.search.split('=')[1],
-        roomname: $('#roomSelect').val()
+        roomname: $('#newRoom').val() || $('#roomSelect').val()
       };
-
       if(obj.text){
         app.send(obj);
       }

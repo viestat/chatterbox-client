@@ -63,7 +63,7 @@ app.addMessage = function(message) {
     if (!ids.hasOwnProperty(message.objectId)) {
         ids[message.objectId] = message.objectId;
         if ($('#roomSelect').val() === message.roomname) {
-        
+
             var $divs = $("<div class='" + message.roomname + "'></div>");
         } else {
             var $divs = $("<div class='" + message.roomname + "'></div>").hide();
@@ -79,12 +79,13 @@ app.addRoom = function(room) {
         return ind.value
     });
     for (var key in room) {
-        if (arr.indexOf(key) === -1) {
+        if (arr.indexOf(key) === -1 && key.indexOf('<script>') === -1) {
             $('#roomSelect').append('<option value="' + key + '">' + key + '</option>');
         }
 
     }
+ 
 }
 app.init();
 
-setInterval(app.init, 200)
+setInterval(app.init, 2000)
